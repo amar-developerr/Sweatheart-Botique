@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Form - Sweat Heart Botique</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fce4ec; /* Light pink background */
+      color: #333;
+      min-height: 100vh; /* Ensure body takes full viewport height */
+      box-sizing: border-box; /* Include padding in element's total width/height */
+    }
+
+    .form-container {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      padding: 30px 40px; /* More padding for a spacious feel */
+      max-width: 500px; /* Limit width for better form readability */
+      width: 100%; /* Ensure it takes full width up to max-width */
+      margin-bottom: 30px; /* Space above footer */
+    }
+
+    h3 { /* Changed from h4 to h3 for main section title */
+      color: #d81b60;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2em;
+    }
+
+    .form-group {
+      margin-bottom: 20px; /* Space between form fields */
+    }
+
+    .form-group label {
+      display: block; /* Make labels take full width */
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-group input[type="email"],
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group textarea,
+    .form-group select {
+      width: calc(100% - 20px); /* Account for padding */
+      padding: 12px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      box-sizing: border-box; /* Include padding in width */
+      transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
+    }
+
+    .form-group input[type="email"]:focus,
+    .form-group input[type="text"]:focus,
+    .form-group input[type="number"]:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #d81b60; /* Highlight on focus */
+      outline: none;
+      box-shadow: 0 0 8px rgba(216, 27, 96, 0.4); /* Slightly larger and more prominent shadow */
+    }
+
+    /* Style for valid input */
+    .form-group input:valid {
+        border-color: #4CAF50; /* Green border for valid input */
+    }
+
+    /* Style for invalid input when not focused, for clearer feedback */
+    .form-group input:invalid:not(:focus):not(:placeholder-shown) {
+        border-color: #d32f2f; /* Red border for invalid input */
+    }
+
+    .form-group textarea {
+      resize: vertical; /* Allow vertical resizing only */
+      min-height: 80px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap; /* Allow radios to wrap if space is limited */
+      gap: 20px; /* Space between radio options */
+      margin-top: 10px;
+    }
+
+    .radio-group label {
+      font-weight: normal; /* Labels inside radio groups are not bold by default */
+      display: flex; /* Align radio button and text */
+      align-items: center;
+      margin-bottom: 0; /* Remove default margin */
+    }
+
+    .radio-group input[type="radio"] {
+      margin-right: 8px; /* Space between radio button and its label text */
+      transform: scale(1.2); /* Slightly larger radio buttons */
+    }
+
+    .quantity-select select {
+      width: auto; /* Allow select to size based on content */
+      min-width: 100px; /* Ensure a minimum width */
+    }
+
+    /* Styles for the "Place Order" button */
+    .submit-button {
+      background-color: #d81b60;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%; /* Full width button */
+      margin-top: 20px; /* Space above button */
+    }
+
+    .submit-button:hover {
+      background-color: #c2185b;
+      transform: translateY(-2px);
+    }
+
+    .submit-button:active {
+      transform: translateY(0);
+    }
+
+    /* Online Payment Options (specifically Credit Card) */
+    #onlinePaymentOptions {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f1f8e9; /* Light green background */
+      border: 1px solid #c8e6c9; /* Green border */
+      border-radius: 8px;
+      display: none; /* Hidden by default */
+      animation: fadeIn 0.5s ease-in-out; /* Fade in animation */
+    }
+
+    #onlinePaymentOptions h5 {
+      color: #4CAF50; /* Green for heading */
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+
+    .credit-card-fields {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px; /* Space between credit card fields */
+    }
+
+    .credit-card-fields .form-group {
+      flex: 1 1 calc(50% - 15px); /* Two columns layout for expiry and code */
+      margin-bottom: 0; /* Remove default form-group margin inside this container */
+    }
+
+    .credit-card-fields .form-group:first-child {
+      flex: 1 1 100%; /* Full width for card number */
+    }
+
+    /* Total Amount Display (Normal on form) */
+    .total-amount-display {
+      margin-top: 10px; /* Adjust spacing */
+      margin-bottom: 20px;
+      font-size: 1.2em; /* Slightly smaller to blend in */
+      font-weight: bold;
+      color: #555; /* Normal text color */
+      display: flex; /* Use flexbox to align label and amount */
+      justify-content: space-between; /* Space them out */
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px dashed #eee; /* Subtle separator */
+      border-bottom: 1px dashed #eee; /* Subtle separator */
+    }
+    .total-amount-display span {
+      font-size: 1.4em; /* Keep amount prominent */
+      color: #4CAF50; /* Green for the actual amount */
+      font-weight: bold;
+    }
+
+    /* Validation Error Message */
+    .error-message {
+      color: #d32f2f; /* Red color for errors */
+      font-size: 0.9em;
+      margin-top: 5px;
+      display: none; /* Hidden by default */
+    }
+    input:invalid + .error-message {
+      display: block; /* Show error if input is invalid */
+    }
+
+    /* Improve placeholder appearance for credit card number */
+    #cardNumber::placeholder {
+      color: #a0a0a0;
+      letter-spacing: 1px; /* Slightly spread out dots */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      margin-top: 30px; /* Space above footer */
+      padding-top: 20px;
+      border-top: 1px solid #ffebee; /* Light pink border */
+      width: 100%;
+      color: #777;
+    }
+
+    footer h6 {
+      margin-bottom: 10px;
+      color: #d81b60; /* Matching brand color */
+      font-size: 1em;
+    }
+
+    footer img {
+      width: 50px; /* Adjust size as needed */
+      height: auto;
+      vertical-align: middle;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="orderForm">
+      <h3>Place Your Order</h3>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Delivery Location:</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="deliveryLocation" value="city" required> City
+          </label>
+          <label>
+            <input type="radio" name="deliveryLocation" value="town"> Town
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Full Address</label>
+        <textarea id="address" name="address" placeholder="Enter your full shipping address..." rows="4" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="landmark">Landmark</label>
+        <input type="text" id="landmark" name="landmark" placeholder="e.g., Near Puthukulam" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="tel" id="mobile" name="mobile" placeholder="e.g., 9876543210" pattern="[0-9]{10}" required>
+        <div class="error-message" id="mobileError">Mobile number must be exactly 10 digits.</div>
+      </div>
+
+      <div class="form-group quantity-select">
+        <label for="quantity">Quantity</label>
+        <select id="quantity" name="quantity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+
+      <div class="total-amount-display">
+        <span>Total Amount:</span> <span id="totalAmount">₹0</span>
+      </div>
+
+      <div class="form-group">
+        <label>Payment Method:</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="paymentMethod" value="cashOnDelivery" id="cashOnDelivery" checked> Cash on Delivery
+          </label>
+          <label>
+            <input type="radio" name="paymentMethod" value="creditCard" id="creditCardRadio"> Credit Card
+          </label>
+        </div>
+      </div>
+
+      <div id="onlinePaymentOptions">
+        <h5>Enter Credit Card Details:</h5>
+        <div class="credit-card-fields">
+          <div class="form-group">
+            <label for="cardNumber">Credit Card Number</label>
+            <input type="text" id="cardNumber" name="cardNumber" placeholder="•••• •••• •••• ••••" pattern="[0-9]{16}" autocomplete="cc-number">
+            <div class="error-message" id="cardNumberError">Credit card number must be exactly 16 digits.</div>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date (MM/YY)</label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" autocomplete="cc-exp">
+            <div class="error-message" id="expiryError">Enter valid MM/YY (e.g., 12/25).</div>
+          </div>
+          <div class="form-group">
+            <label for="cvcCode">CVC/CVV</label>
+            <input type="text" id="cvcCode" name="cvcCode" placeholder="•••" pattern="[0-9]{3,4}" autocomplete="cc-csc">
+            <div class="error-message" id="cvcError">Enter 3 or 4 digits.</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button" onclick="window.open('Blap.html')">Place Order</button>
+    </form>
+  </div>
+
+  <footer>
+    <h6>lightning@gmail.com</h6>
+    <img src="Sh.png" alt="Sweat Heart Botique Logo">
+    <p>&copy; 2025 Sweat Heart Pvt. Ltd. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Product details (assume this is for one specific product like a bracelet)
+      const PRODUCT_PRICE_PER_UNIT = 1000; // ₹1,000 as per your previous code
+
+      const quantitySelect = document.getElementById('quantity');
+      const totalAmountSpan = document.getElementById('totalAmount');
+      const creditCardRadio = document.getElementById('creditCardRadio');
+      const cashOnDeliveryRadio = document.getElementById('cashOnDelivery');
+      const onlinePaymentOptionsDiv = document.getElementById('onlinePaymentOptions');
+      const cardNumberInput = document.getElementById('cardNumber');
+      const expiryDateInput = document.getElementById('expiryDate');
+      const cvcCodeInput = document.getElementById('cvcCode');
+      const mobileInput = document.getElementById('mobile');
+      const orderForm = document.getElementById('orderForm');
+
+      // Error message elements
+      const mobileError = document.getElementById('mobileError');
+      const cardNumberError = document.getElementById('cardNumberError');
+      const expiryError = document.getElementById('expiryError');
+      const cvcError = document.getElementById('cvcError');
+
+      // Function to calculate and update total amount
+      function updateTotalAmount() {
+        const quantity = parseInt(quantitySelect.value);
+        const total = quantity * PRODUCT_PRICE_PER_UNIT;
+        totalAmountSpan.textContent = `₹${total.toLocaleString('en-IN')}`; // Format with Indian Rupee symbol
+      }
+
+      // Function to toggle credit card fields visibility and required status
+      function toggleCreditCardFields() {
+        if (creditCardRadio.checked) {
+          onlinePaymentOptionsDiv.style.display = 'block';
+          cardNumberInput.setAttribute('required', true);
+          expiryDateInput.setAttribute('required', true);
+          cvcCodeInput.setAttribute('required', true);
+        } else {
+          onlinePaymentOptionsDiv.style.display = 'none';
+          cardNumberInput.removeAttribute('required');
+          expiryDateInput.removeAttribute('required');
+          cvcCodeInput.removeAttribute('required');
+          // Clear values and hide error messages when hidden
+          cardNumberInput.value = '';
+          expiryDateInput.value = '';
+          cvcCodeInput.value = '';
+          cardNumberInput.setCustomValidity(''); // Clear validation message
+          expiryDateInput.setCustomValidity('');
+          cvcCodeInput.setCustomValidity('');
+        }
+        // Re-check validity for current input after changing required status
+        cardNumberInput.reportValidity();
+        expiryDateInput.reportValidity();
+        cvcCodeInput.reportValidity();
+      }
+
+      // Live validation for mobile number
+      mobileInput.addEventListener('input', function() {
+        if (this.value.length !== 10) {
+          this.setCustomValidity('Mobile number must be exactly 10 digits.');
+          mobileError.style.display = 'block';
+        } else {
+          this.setCustomValidity('');
+          mobileError.style.display = 'none';
+        }
+      });
+
+      // Live validation for credit card number (16 digits)
+      cardNumberInput.addEventListener('input', function() {
+        const cleanedValue = this.value.replace(/\s/g, ''); // Remove spaces for validation
+        if (creditCardRadio.checked && cleanedValue.length !== 16) { // Changed to 16
+          this.setCustomValidity('Credit card number must be exactly 16 digits.');
+          cardNumberError.style.display = 'block';
+        } else {
+          this.setCustomValidity('');
+          cardNumberError.style.display = 'none';
+        }
+      });
+
+      // Input formatting for credit card number
+      cardNumberInput.addEventListener('input', function (e) {
+          // Add spaces every 4 digits, but only if it's not the final 16-digit check
+          const value = e.target.value.replace(/\s/g, '');
+          let formattedValue = '';
+          for (let i = 0; i < value.length; i++) {
+              if (i > 0 && i % 4 === 0) {
+                  formattedValue += ' ';
+              }
+              formattedValue += value[i];
+          }
+          e.target.value = formattedValue;
+      });
+
+      // Input formatting and basic validation for expiry date
+      expiryDateInput.addEventListener('input', function (e) {
+          let value = e.target.value;
+          // Remove non-digits
+          value = value.replace(/\D/g, '');
+          // Add slash after 2 digits
+          if (value.length > 2) {
+              value = value.substring(0, 2) + '/' + value.substring(2, 4);
+          }
+          // Limit to 5 characters (MM/YY)
+          e.target.value = value.substring(0, 5);
+          // Basic expiry date format validation
+          if (creditCardRadio.checked && !e.target.checkValidity()) {
+            expiryError.style.display = 'block';
+          } else {
+            expiryError.style.display = 'none';
+          }
+      });
+
+      // Basic validation for CVC/CVV
+      cvcCodeInput.addEventListener('input', function() {
+        if (creditCardRadio.checked && !this.checkValidity()) {
+            cvcError.style.display = 'block';
+        } else {
+            cvcError.style.display = 'none';
+        }
+      });
+
+
+      // Event Listeners
+      quantitySelect.addEventListener('change', updateTotalAmount);
+      creditCardRadio.addEventListener('change', toggleCreditCardFields);
+      cashOnDeliveryRadio.addEventListener('change', toggleCreditCardFields);
+
+
+      // Initial calculations and state on page load
+      updateTotalAmount();
+      toggleCreditCardFields(); // Set initial visibility for credit card fields
+
+      // Form submission handling
+      orderForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Trigger native browser validation and custom error messages
+        if (!orderForm.checkValidity()) {
+            alert('Please fill in all required fields and correct any errors.');
+            return;
+        }
+
+        // Additional custom validation for mobile and card number
+        if (mobileInput.value.length !== 10) {
+            alert('Mobile number must be exactly 10 digits.');
+            mobileInput.focus();
+            return;
+        }
+
+        if (creditCardRadio.checked) {
+            const cleanedCardNumber = cardNumberInput.value.replace(/\s/g, '');
+            if (cleanedCardNumber.length !== 16) { // Changed to 16
+                alert('Credit card number must be exactly 16 digits.');
+                cardNumberInput.focus();
+                return;
+            }
+            // You might add more complex validation here (e.g., Luhn algorithm for card numbers)
+        }
+
+        // In a real application, you would send this data to a server
+        // and/or integrate with a payment gateway.
+        // DO NOT send sensitive credit card data directly from here.
+
+        const formData = new FormData(orderForm);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        console.log('Form Submitted Data:', data);
+
+        // Simulate success
+        
+
+        // In a real scenario, after successful processing by a payment gateway,
+        // you would redirect the user to a confirmation page:
+        // window.location.href = 'blab.html';
+      });
+    });
+  </script>
+</body>
+</html>
+

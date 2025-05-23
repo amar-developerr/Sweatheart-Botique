@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Links</title>
+  <style>
+    body {
+      /* Using min-height: 100vh for body ensures it takes at least the full viewport height,
+         allowing content to extend if needed.
+         width: 100vw ensures it takes the full viewport width.
+      */
+      min-height: 100vh;
+      width: 100vw;
+      margin: 0; /* Remove default body margin */
+      display: flex; /* Use flexbox for layout */
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center items horizontally */
+      justify-content: flex-start; /* Align items to the top */
+      padding: 20px; /* Add some padding around the content */
+      box-sizing: border-box; /* Include padding in the element's total width and height */
+      font-family: sans-serif; /* A more readable font */
+      background-color: #f4f4f4; /* Light background color */
+    }
+
+    /* Style for the image links container (if you want to group them) */
+    .image-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 15px; /* Adds space between each image link */
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-gallery a {
+      display: block; /* Make the link a block element so it takes full width and new line */
+      text-align: center; /* Center the image within the link */
+      border: 2px solid transparent; /* Add a subtle border that can change on hover */
+      border-radius: 5px;
+      transition: border-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    }
+
+    .image-gallery a:hover {
+      border-color: #007bff; /* Highlight border on hover */
+      transform: translateY(-2px); /* Slight lift effect on hover */
+    }
+
+    .image-gallery img {
+      max-width: 100%; /* Ensures images are responsive and don't overflow */
+      height: auto; /* Maintains aspect ratio */
+      display: block; /* Removes extra space below the image */
+      border-radius: 3px; /* Slightly rounded corners for images */
+    }
+
+    /* You can add specific sizes if desired, e.g.: */
+    /*
+    .image-gallery img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover; // Crops the image to fit the dimensions
+    }
+    */
+  </style>
+</head>
+<body>
+  <div class="image-gallery">
+    <a href="Nano.html"> <img src="Ba.jpg" alt="Description for Ba image">
+    </a>
+    <a href="Nani.html">
+      <img src="Ma.jpg" alt="Description for Ma image">
+    </a>
+    <a href="Nanu.html">
+      <img src="La.jpg" alt="Description for La image">
+    </a>
+    <a href="Nany.html">
+      <img src="Ka.jpg" alt="Description for Ka image">
+    </a>
+    <a href="Nant.html">
+      <img src="Na.jpg" alt="Description for Na image">
+    </a>
+  </div>
+</body>
+</html>

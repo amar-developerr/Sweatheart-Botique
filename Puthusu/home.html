@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>sweat.heart.botique</title>
+  <style>
+    /* Basic styling for the body to center content and remove default margins */
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Ensures the body takes at least the full viewport height */
+      background-color: #f8f8f8; /* Light background for better contrast */
+    }
+
+    .menu {
+      display: flex; /* Arranges menu items in a row */
+      flex-direction: column; /* Stacks menu items vertically */
+      gap: 15px; /* Adds space between menu items */
+      padding: 50px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu img {
+      width: 150px; /* Increased size for better visibility */
+      height: 150px;
+      margin-right: 10px;
+      vertical-align: middle; /* Aligns image with text if any */
+      border-radius: 5px; /* Slightly rounded corners for images */
+    }
+
+    .menu a {
+      text-decoration: none; /* Removes underline from links */
+      color: #333; /* Darker text color */
+      display: flex; /* Allows image and potential text to be on the same line */
+      align-items: center; /* Vertically aligns image and text */
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease; /* Smooth hover effect */
+    }
+
+    .menu a:hover {
+      background-color: #e9e9e9; /* Light background on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="total">
+    <div class="menu">
+      <a href="menu.html" class="three">
+        <img src="Acc.jpeg" alt="Accessories Menu">
+        <span>Accessories</span> </a>
+      <a href="main.html" class="dress">
+        <img src="Mod.jpeg" alt="Modern">
+        <span>Modern</span> </a>
+      <a href="Tra.html" class="dresss">
+        <img src="Saree .jpeg" alt="Traditional">
+        <span>Traditional</span> </a>
+    </div>
+  </div>
+</body>
+</html>

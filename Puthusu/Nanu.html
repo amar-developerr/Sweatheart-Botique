@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bracelet - Sweat Heart Botique</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A modern, readable font */
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center content horizontally */
+      background-color: #fce4ec; /* Light pink background, fitting for 'Sweat Heart Botique' */
+      color: #333;
+    }
+
+    .product-container {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Softer, larger shadow */
+      padding: 80px;
+      max-width: 200px; /* Limit width for better readability and design */
+      text-align: center;
+      margin-bottom: 20px; /* Space below the product card */
+    }
+
+    h4 {
+      color: #d81b60; /* A vibrant pink for headings */
+      margin-top: 0; /* Remove default top margin */
+      margin-bottom: 10px;
+      font-size: 1.8em; /* Larger heading for product name */
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #ff80ab; /* Thicker, pinker line */
+      margin: 20px auto; /* Center the line and give vertical space */
+      width: 80%; /* Shorter line for visual appeal */
+    }
+
+    .product-images {
+      display: flex;
+      justify-content: center; /* Center images if there are multiple */
+      gap: 15px; /* Space between images */
+      margin-bottom: 20px;
+    }
+
+    .product-images img {
+      max-width: 150px; /* Control image size */
+      height: auto; /* Maintain aspect ratio */
+      border-radius: 8px; /* Rounded corners for images */
+      border: 1px solid #eee; /* Subtle border around images */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .price {
+      color: #4CAF50; /* Green for price */
+      font-size: 2.2em; /* Larger price font */
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      color: #555;
+    }
+
+    .buy-button {
+      background-color: #d81b60; /* Matching heading color */
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px; /* More rounded button */
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #c2185b; /* Darker pink on hover */
+      transform: translateY(-2px); /* Slight lift effect */
+    }
+
+    .buy-button:active {
+      transform: translateY(0); /* Press down effect */
+    }
+  </style>
+</head>
+<body>
+  <div class="product-container">
+    <h4>Earings</h4>
+    <hr>
+    <div class="product-images">
+      <img src="La.jpg" alt="Beautiful Bracelet - View 1">
+      <img src="Mv.jpg" alt="Beautiful Bracelet - View 2">
+      </div>
+    <div class="price">₹1,000</div>
+    <p>Best offers going on at our Sweat Heart Botique! Don't miss out on this elegant piece.</p>
+    <button class="buy-button" onclick="window.open('blan.html', '_blank');">Buy Now</button>
+  </div>
+</body>
+</html>
